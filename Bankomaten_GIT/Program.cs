@@ -90,5 +90,49 @@
 
             }
         }
+
+        //Inloggningsfunktion
+        static int Login(string[,] usersAndPins)
+        {
+            int loginAttempts = 0;
+
+            while (loginAttempts < 3)
+            {
+                Console.WriteLine("Skriv ditt användarnamn: ");
+                string userName = Console.ReadLine();
+
+                int userIndex = -1;
+
+                //Räknar hur många försök man gjort
+                for (int i = 0; i < usersAndPins.GetLength(0); i++)
+                {
+                    if (userName == usersAndPins[i, 0])
+                    {
+                        userIndex = i;
+                        break;
+                    }
+                }
+                if (userIndex == -1)
+                {
+                    Console.WriteLine("Användaren finns inte.");
+                    return -1;
+                }
+                Console.WriteLine("Skriv din pinkod");
+                string userPin = Console.ReadLine();
+
+                if (usersAndPins[userIndex, 1] == userPin)
+                {
+                    Console.WriteLine($"Du är inloggad som {usersAndPins[userIndex, 0]}.");
+                    return userIndex;
+                }
+                else
+                {
+                    Console.WriteLine("Fel pinkod, försök igen.");
+                    loginAttempts++;
+                }
+            }
+            Console.WriteLine("Du har skrivit in fel pinkod tre gånger. Programmet avslutas.");
+            return -1;
+        }
     }
 }
