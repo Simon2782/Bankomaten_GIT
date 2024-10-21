@@ -41,6 +41,52 @@
                     return;
                 }
 
+                //Meny och menyval
+                bool loggedIn = true;
+
+                while (loggedIn)
+                {
+                    Console.WriteLine("1. Se dina konton och saldo");
+                    Console.WriteLine("2. Överföring mellan konton");
+                    Console.WriteLine("3. Ta ut pengar");
+                    Console.WriteLine("4. Logga ut");
+
+                    string input = Console.ReadLine();
+
+                    switch (input)
+                    {
+                        //Visar konton och saldon
+                        case "1":
+                            ShowAccountBalances(accounts, accountNames, userIndex);
+                            break;
+
+                        //Överför pengar mellan konton
+                        case "2":
+                            TransferBetweenAccounts(accounts, accountNames, userIndex);
+                            break;
+
+                        //Ta ut pengar
+                        case "3":
+                            WithdrawMoney(accounts, accountNames, userIndex, usersAndPins);
+                            break;
+
+                        //Logga ut
+                        case "4":
+                            loggedIn = false;
+                            Console.WriteLine("Du har loggats ut.");
+                            break;
+
+                        default:
+                            Console.WriteLine("Ogiltigt val, försök igen.");
+                            break;
+                    }
+                    if (loggedIn)
+                    {
+                        Console.WriteLine("Klicka enter för att komma till huvudmenyn");
+                        Console.ReadLine(); //Väntar på ett knapptryck för att visa upp menyn igen
+                    }
+
+                }
 
             }
         }
