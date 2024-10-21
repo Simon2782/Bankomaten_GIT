@@ -134,5 +134,54 @@
             Console.WriteLine("Du har skrivit in fel pinkod tre gånger. Programmet avslutas.");
             return -1;
         }
+
+        //Metod för att visa konton och saldon
+        static void ShowAccountBalances(decimal[][] accounts, string[] accountNames, int userIndex)
+        {
+            Console.WriteLine("Dina konton och saldo:");
+            for (int i = 0; i < accounts[userIndex].Length; i++)
+            {
+                Console.WriteLine($"{accountNames[i]}: {accounts[userIndex][i]:C}");
+            }
+        }
+
+        //Metod för att överföra pengar mellan konton
+        static void TransferBetweenAccounts(decimal[][] accounts, string[] accountNames, int userIndex)
+        {
+            Console.WriteLine("Överföring mellan konton:");
+            Console.WriteLine("Från vilket konto vill du överföra pengar?");
+
+            ShowAccountBalances(accounts, accountNames, userIndex);
+            int fromAccount = int.Parse(Console.ReadLine()) - 1;
+
+            Console.WriteLine("Till vilket konto vill du överföra pengar?");
+            int toAccount = int.Parse(Console.ReadLine()) - 1;
+
+
+
+            if (fromAccount < 0 || fromAccount >= accounts[userIndex].Length || toAccount >= accounts[userIndex].Length)
+            {
+                Console.WriteLine("Ogiltigt konto valt.");
+                return;
+            }
+
+            Console.WriteLine("Hur mycket vill du överföra?");
+            decimal amount = decimal.Parse(Console.ReadLine());
+
+            if (accounts[userIndex][fromAccount] >= amount)
+            {
+                accounts[userIndex][fromAccount] -= amount;
+                accounts[userIndex][toAccount] += amount;
+                Console.WriteLine($"Överfört {amount:C} från {accountNames[fromAccount]} till {accountNames[toAccount]}");
+                Console.WriteLine($"Nytt saldo för {accountNames[fromAccount]}: {accounts[userIndex][fromAccount]:C}");
+                Console.WriteLine($"Nytt saldo för {accountNames[toAccount]}: {accounts[userIndex][toAccount]:C}");
+            }
+
+
+            else
+            {
+                Console.WriteLine("Otillräckligt saldo för överföringen.");
+            }
+        }
     }
 }
