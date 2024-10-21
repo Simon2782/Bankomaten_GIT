@@ -183,5 +183,47 @@
                 Console.WriteLine("Otillräckligt saldo för överföringen.");
             }
         }
+
+        //Metod för att ta ut pengar
+        static void WithdrawMoney(decimal[][] accounts, string[] accountNames, int userIndex, string[,] usersAndPins)
+        {
+            Console.WriteLine("Ta ut pengar:");
+            ShowAccountBalances(accounts, accountNames, userIndex);
+
+            Console.WriteLine("Från vilket konto vill du ta ut pengar?");
+            int account = int.Parse(Console.ReadLine()) - 1;
+
+
+
+
+
+            if (account < 0 || account >= accounts[userIndex].Length)
+            {
+                Console.WriteLine("Ogiltigt konto valt.");
+                return;
+            }
+            Console.WriteLine("Hur mycket vill du ta ut?");
+            decimal amount = decimal.Parse(Console.ReadLine());
+
+            if (accounts[userIndex][account] >= amount)
+            {
+                Console.WriteLine("Skriv in din pinkod för att bekräfta uttaget: ");
+                string userPin = Console.ReadLine();
+
+                if (usersAndPins[userIndex, 1] == userPin)
+                {
+                    accounts[userIndex][account] -= amount;
+                    Console.WriteLine($"Du har tagit ut {amount:C} Nytt saldo: {accounts[userIndex][account]:C}");
+                }
+                else
+                {
+                    Console.WriteLine("Fel pinkod. Uttaget misslyckades.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Otilräckligt saldo.");
+            }
+        }
     }
 }
