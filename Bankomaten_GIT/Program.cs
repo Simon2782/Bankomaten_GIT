@@ -26,6 +26,23 @@
             accounts[2] = [50000.75m, 120000m];
             accounts[3] = [60000.55m, 550000m];
             accounts[4] = [12000.35m, 400000m, 30000];
+
+
+            while (true) //Fortsätt programmet tills användaren väljer att logga ut
+            {
+                Console.WriteLine("Välkommen till banken!");
+
+                //Inloggningslogik
+                int userIndex = Login(usersAndPins);
+
+                if (userIndex == -1)
+                {
+                    Console.WriteLine("Fel inloggning, programmet avslutas.");
+                    return;
+                }
+
+
+            }
         }
     }
 }
